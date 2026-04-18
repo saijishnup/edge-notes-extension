@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Quick Notes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+  <div class="left-icons">
+    <a href="https://github.com/YOUR_USERNAME/YOUR_REPO" target="_blank" id="githubLink">
+      <img src="icons/github.png" alt="GitHub">
+    </a>
+    <h2>Notes</h2>
+  </div>
+
+  <button id="themeToggle">🌗</button>
+</div>
+
+  <textarea id="noteInput" placeholder="Write something..."></textarea>
+
+  <button id="addNote">Add</button>
+
+
+  <div class="toggle-bar" id="toggleNotes">
+    Recent Notes ⬇
+  </div>
+
+  <ul id="notesList" class="hidden"></ul>
+
+
+<!-- Modal -->
+<div id="editorModal" class="modal hidden">
+  <div class="modal-content">
+    <textarea id="editArea"></textarea>
+
+    <div class="modal-actions">
+      <button id="saveEdit">Save</button>
+      <button id="copyNote">Copy</button>
+      <button id="closeModal">Close</button>
+    </div>
+  </div>
+</div>
+
+<script src="popup.js"></script>
+</body>
+</html>

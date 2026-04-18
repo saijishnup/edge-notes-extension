@@ -1,0 +1,264 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  width: 300px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Container */
+.container {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Theme variables */
+:root {
+  --bg: #ffffff;
+  --text: #111;
+  --card: #f3f3f3;
+  --primary: #4CAF50;
+  --border: #ddd;
+}
+
+.dark {
+  --bg: #1e1e1e;
+  --text: #ffffff;
+  --card: #2c2c2c;
+  --primary: #66bb6a;
+  --border: #444;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left-icons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.left-icons img {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: 0.2s;
+}
+
+.left-icons img:hover {
+  opacity: 1;
+  transform: scale(1.5);
+}
+
+.left-icons img {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: 0.2s;
+  position: relative;
+  top: 2px;   /* 👈 THIS FIXES ALIGNMENT */
+}
+
+/* move theme slightly left visually */
+#themeToggle {
+  margin-left: 5px;
+}
+
+#themeToggle {
+  border: none;
+  background: var(--card);
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Input */
+textarea {
+  width: 100%;
+  height: 80px;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  outline: none;
+  font-size: 14px;
+  resize: none;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Add button */
+#addNote {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 12px;
+  background: var(--primary);
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#addNote:hover {
+  opacity: 0.9;
+}
+
+/* Toggle */
+.toggle-bar {
+  font-size: 13px;
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+/* Notes list */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+/* Note card */
+li {
+  background: var(--card);
+  padding: 10px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;   /* ADD THIS */
+  border: 1px solid var(--border); /* ADD THIS */
+}
+
+li:hover {
+  transform: scale(1.01);
+}
+
+/* Title */
+li span {
+  flex: 1;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+/* Delete button */
+li button {
+  background: transparent;
+  border: none;
+  color: red;
+  font-size: 14px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ================= MODAL ================= */
+
+/* Overlay */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Box */
+.modal-content {
+  width: 95%;
+  max-width: 280px;
+  background: var(--card);
+  padding: 12px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: scaleIn 0.2s ease;
+}
+
+/* Modal textarea */
+.modal textarea {
+  width: 100%;
+  height: 140px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 13px;
+  background: var(--bg);
+  color: var(--text);
+  resize: none;
+}
+
+/* Buttons row */
+.modal-actions {
+  display: flex;
+  gap: 6px;
+}
+
+/* Buttons */
+.modal-actions button {
+  flex: 1;
+  padding: 6px;
+  border-radius: 8px;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* Individual buttons */
+#saveEdit {
+  background: #4CAF50;
+  color: white;
+}
+
+#copyNote {
+  background: #2196F3;
+  color: white;
+}
+
+#closeModal {
+  background: #555;
+  color: white;
+}
+
+.modal-actions button:hover {
+  opacity: 0.85;
+}
+
+/* Animation */
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
