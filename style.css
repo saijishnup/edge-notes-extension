@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@8..144,400;8..144,500;8..144,600&display=swap');
+
 * {
   box-sizing: border-box;
 }
@@ -105,7 +107,7 @@ textarea {
   border: none;
   border-radius: 12px;
   background: var(--primary);
-  color: white;
+  color: #000;
   font-size: 14px;
   cursor: pointer;
   transition: 0.2s;
@@ -245,6 +247,15 @@ li button {
 #closeModal {
   background: #c50000;
   color: white;
+}
+
+.left-icons h2,
+#toggleNotes,
+#addNote,
+#saveEdit,
+#copyNote,
+#closeModal {
+  font-family: 'Google Sans Flex', 'Segoe UI', sans-serif;
 }
 
 .modal-actions button:hover {
