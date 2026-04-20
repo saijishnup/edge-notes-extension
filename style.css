@@ -58,10 +58,6 @@ body {
   transition: 0.2s;
 }
 
-.left-icons img:hover {
-  opacity: 1;
-  transform: scale(1.5);
-}
 
 .left-icons img {
   width: 18px;
@@ -84,6 +80,12 @@ body {
   padding: 6px 10px;
   border-radius: 8px;
   cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+#themeToggle:active {
+  transform: scale(0.1);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 /* Input */
@@ -272,4 +274,25 @@ li button {
     transform: scale(1);
     opacity: 1;
   }
+}
+
+.right-icons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.right-icons img {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: 0.2s;
+  position: relative;
+  top: 2px;
+}
+
+.right-icons img:hover {
+  opacity: 1;
+  transform: scale(1.5);
 }
