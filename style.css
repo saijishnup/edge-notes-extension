@@ -23,7 +23,7 @@ body {
   --bg: #ffffff;
   --text: #111;
   --card: #f3f3f3;
-  --primary: #4CAF50;
+  --primary: #dee600;
   --border: #ddd;
 }
 
@@ -31,7 +31,7 @@ body {
   --bg: #1e1e1e;
   --text: #ffffff;
   --card: #2c2c2c;
-  --primary: #66bb6a;
+  --primary: #dee600;
   --border: #444;
 }
 
@@ -233,17 +233,17 @@ li button {
 
 /* Individual buttons */
 #saveEdit {
-  background: #c7d500;
+  background: #0cb400;
   color: white;
 }
 
 #copyNote {
-  background: #2196F3;
+  background: #3785c4;
   color: white;
 }
 
 #closeModal {
-  background: #555;
+  background: #c50000;
   color: white;
 }
 
