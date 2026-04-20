@@ -31,10 +31,10 @@ body {
 
 .dark {
   --bg: #1e1e1e;
-  --text: #fcff69;
+  --text: #ffffff;
   --card: #2c2c2c;
   --primary: #dee600;
-  --border:  #f9ff4462;
+  --border:  #f7ff0d62;
 }
 
 /* Header */
