@@ -26,7 +26,7 @@ body {
   --text: #111;
   --card: #f3f3f3;
   --primary: #dee600;
-  --border: #ddd;
+  --border: #dee600;
 }
 
 .dark {
@@ -34,7 +34,7 @@ body {
   --text: #ffffff;
   --card: #2c2c2c;
   --primary: #dee600;
-  --border:  #dee600;
+  --border:  #dee60062;
 }
 
 /* Header */
