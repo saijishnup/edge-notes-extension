@@ -6,7 +6,7 @@
 
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Segoe UI', 'Segoe UI';
   width: 300px;
   background: var(--bg);
   color: var(--text);
@@ -255,7 +255,7 @@ li button {
 #saveEdit,
 #copyNote,
 #closeModal {
-  font-family: 'Google Sans Flex', 'Segoe UI', sans-serif;
+  font-family: 'Google Sans Flex', 'Segoe UI', 'Segoe UI';
 }
 
 .modal-actions button:hover {
