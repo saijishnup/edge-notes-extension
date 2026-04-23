@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@8..144,400;8..144,500;8..144,600&display=swap');
-
 * {
   box-sizing: border-box;
 }
@@ -8,6 +6,11 @@ body {
   margin: 0;
   font-family: 'Segoe UI', 'Segoe UI';
   width: 300px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+html {
   background: var(--bg);
   color: var(--text);
 }
@@ -56,17 +59,8 @@ body {
   cursor: pointer;
   opacity: 0.8;
   transition: 0.2s;
-}
-
-
-.left-icons img {
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-  opacity: 0.8;
-  transition: 0.2s;
   position: relative;
-  top: 2px;   /* 👈 THIS FIXES ALIGNMENT */
+  top: 2px;
 }
 
 /* move theme slightly left visually */
@@ -77,14 +71,22 @@ body {
 #themeToggle {
   border: none;
   background: var(--card);
-  padding: 6px 10px;
+  width: 34px;
+  height: 34px;
+  padding: 0;
   border-radius: 8px;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  user-select: none;
+  touch-action: manipulation;
   transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 
 #themeToggle:active {
-  transform: scale(0.1);
+  transform: scale(0.96);
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
@@ -154,14 +156,27 @@ li:hover {
 }
 
 /* Title */
-li span {
+li .note-title {
   flex: 1;
+  background: transparent;
+  border: 0;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+  color: var(--text);
+  font-family: inherit;
   font-size: 13px;
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1.3;
+}
+
+li .note-title:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 6px;
 }
 
 /* Delete button */
@@ -257,7 +272,7 @@ li button {
 #saveEdit,
 #copyNote,
 #closeModal {
-  font-family: 'Google Sans Flex', 'Segoe UI', 'Segoe UI';
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .modal-actions button:hover {

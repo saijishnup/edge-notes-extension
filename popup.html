@@ -16,10 +16,10 @@
     </div>
 
     <div class="right-icons">
-      <a href="https://github.com/saijishnup/edge-notes-extension" target="_blank" id="githubLink">
+      <a href="https://github.com/saijishnup/edge-notes-extension" target="_blank" rel="noopener noreferrer" id="githubLink">
         <img src="icons/github.png" alt="GitHub">
       </a>
-      <button id="themeToggle">🌗</button>
+        <button id="themeToggle" type="button" aria-label="Toggle theme">🌗</button>
     </div>
   </div>
 
@@ -35,8 +35,10 @@
   <ul id="notesList" class="hidden"></ul>
 
 
+  </div>
+
 <!-- Modal -->
-<div id="editorModal" class="modal hidden">
+<div id="editorModal" class="modal hidden" role="dialog" aria-modal="true" aria-label="Edit note">
   <div class="modal-content">
     <textarea id="editArea"></textarea>
 

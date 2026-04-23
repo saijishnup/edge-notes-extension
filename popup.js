@@ -10,26 +10,65 @@ const saveBtn = document.getElementById("saveEdit");
 const copyBtn = document.getElementById("copyNote");
 const closeBtn = document.getElementById("closeModal");
 
-let currentIndex = null;
+let currentNoteId = null;
+
+function createNoteId() {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    return crypto.randomUUID();
+  }
+  return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+}
+
+function normalizeNote(note) {
+  const content = typeof note?.content === "string" ? note.content : "";
+  const title = typeof note?.title === "string" ? note.title : content.split("\n")[0] || "Untitled";
+  return {
+    id: note?.id || createNoteId(),
+    title,
+    content
+  };
+}
+
+function getNotes(callback) {
+  chrome.storage.local.get(["notes"], (result) => {
+    const rawNotes = Array.isArray(result.notes) ? result.notes : [];
+    const notes = rawNotes.map(normalizeNote);
+    callback(notes);
+  });
+}
+
+function setNotes(notes, callback) {
+  chrome.storage.local.set({ notes }, callback);
+}
+
+function setNotesExpanded(expanded) {
+  list.classList.toggle("hidden", !expanded);
+  list.hidden = !expanded;
+  toggle.textContent = expanded ? "Recent Notes ⬆" : "Recent Notes ⬇";
+  toggle.setAttribute("aria-expanded", String(expanded));
+}
 
 // Load notes
 function loadNotes() {
-  chrome.storage.local.get(["notes"], (result) => {
-    const notes = result.notes || [];
+  getNotes((notes) => {
     list.innerHTML = "";
 
-    notes.forEach((note, index) => {
+    notes.forEach((note) => {
       const li = document.createElement("li");
 
-      const span = document.createElement("span");
-      span.textContent = note.title;
-      span.onclick = () => openEditor(note, index);
+      const noteBtn = document.createElement("button");
+      noteBtn.type = "button";
+      noteBtn.className = "note-title";
+      noteBtn.textContent = note.title;
+      noteBtn.onclick = () => openEditor(note.id);
 
       const delBtn = document.createElement("button");
+      delBtn.type = "button";
+      delBtn.setAttribute("aria-label", `Delete note: ${note.title}`);
       delBtn.textContent = "✕";
-      delBtn.onclick = () => deleteNote(index);
+      delBtn.onclick = () => deleteNote(note.id);
 
-      li.appendChild(span);
+      li.appendChild(noteBtn);
       li.appendChild(delBtn);
       list.appendChild(li);
     });
@@ -44,15 +83,15 @@ addBtn.onclick = () => {
   const lines = text.split("\n");
 
   const note = {
+    id: createNoteId(),
     title: lines[0],
     content: text
   };
 
-  chrome.storage.local.get(["notes"], (result) => {
-    const notes = result.notes || [];
+  getNotes((notes) => {
     notes.push(note);
 
-    chrome.storage.local.set({ notes }, () => {
+    setNotes(notes, () => {
       input.value = "";
       loadNotes();
     });
@@ -60,64 +99,77 @@ addBtn.onclick = () => {
 };
 
 // Delete
-function deleteNote(index) {
-  chrome.storage.local.get(["notes"], (result) => {
-    let notes = result.notes || [];
-    notes.splice(index, 1);
-    chrome.storage.local.set({ notes }, loadNotes);
+function deleteNote(noteId) {
+  getNotes((notes) => {
+    const nextNotes = notes.filter((note) => note.id !== noteId);
+    setNotes(nextNotes, loadNotes);
   });
 }
 
 // Toggle notes
 toggle.onclick = () => {
-  list.classList.toggle("hidden");
-
-  // change arrow direction
-  if (list.classList.contains("hidden")) {
-    toggle.textContent = "Recent Notes ⬇";
-  } else {
-    toggle.textContent = "Recent Notes ⬆";
-  }
+  const isExpanded = !list.classList.contains("hidden") && !list.hidden;
+  setNotesExpanded(!isExpanded);
 };
 
 // Theme toggle
 themeBtn.onclick = () => {
-  document.body.classList.toggle("dark");
+  document.documentElement.classList.toggle("dark");
 
   chrome.storage.local.set({
-    theme: document.body.classList.contains("dark") ? "dark" : "light"
+    theme: document.documentElement.classList.contains("dark") ? "dark" : "light"
   });
 };
 
 // Load theme
 chrome.storage.local.get(["theme"], (result) => {
   if (result.theme === "dark") {
-    document.body.classList.add("dark");
+    document.documentElement.classList.add("dark");
   }
 });
 
 // Open editor
-function openEditor(note, index) {
-  modal.classList.remove("hidden");
-  editArea.value = note.content;
-  currentIndex = index;
+function openEditor(noteId) {
+  getNotes((notes) => {
+    const note = notes.find((item) => item.id === noteId);
+    if (!note) {
+      return;
+    }
+
+    modal.classList.remove("hidden");
+    editArea.value = note.content;
+    currentNoteId = note.id;
+    editArea.focus();
+  });
 }
 
 // Save edit
 saveBtn.onclick = () => {
-  chrome.storage.local.get(["notes"], (result) => {
-    let notes = result.notes || [];
+  if (!currentNoteId) {
+    return;
+  }
+
+  getNotes((notes) => {
+    const noteIndex = notes.findIndex((note) => note.id === currentNoteId);
+    if (noteIndex === -1) {
+      modal.classList.add("hidden");
+      currentNoteId = null;
+      loadNotes();
+      return;
+    }
 
     const updated = editArea.value;
     const lines = updated.split("\n");
 
-    notes[currentIndex] = {
+    notes[noteIndex] = {
+      id: currentNoteId,
       title: lines[0],
       content: updated
     };
 
-    chrome.storage.local.set({ notes }, () => {
+    setNotes(notes, () => {
       modal.classList.add("hidden");
+      currentNoteId = null;
       loadNotes();
     });
   });
@@ -125,13 +177,31 @@ saveBtn.onclick = () => {
 
 // Copy
 copyBtn.onclick = () => {
-  navigator.clipboard.writeText(editArea.value);
+  navigator.clipboard.writeText(editArea.value).catch((error) => {
+    console.error("Copy failed", error);
+  });
 };
 
 // Close modal
 closeBtn.onclick = () => {
   modal.classList.add("hidden");
+  currentNoteId = null;
 };
 
+modal.onclick = (event) => {
+  if (event.target === modal) {
+    modal.classList.add("hidden");
+    currentNoteId = null;
+  }
+};
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !modal.classList.contains("hidden")) {
+    modal.classList.add("hidden");
+    currentNoteId = null;
+  }
+});
+
 // Init
+setNotesExpanded(false);
 loadNotes();
