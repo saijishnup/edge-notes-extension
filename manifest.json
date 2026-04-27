@@ -1,5 +1,5 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 2.1,
   "name": "Quick Notes",
   "version": "2.0",
   "description": "Lightweight notes extension",
@@ -7,6 +7,9 @@
   "action": {
     "default_popup": "popup.html",
     "default_title": "Quick Notes"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com"
   },
   "icons": {
     "48": "icons/icon48.png",

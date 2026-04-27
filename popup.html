@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Quick Notes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -28,8 +31,9 @@
   <button id="addNote">Add</button>
 
 
-  <div class="toggle-bar" id="toggleNotes">
-    Recent Notes ⬇
+  <div class="toggle-bar">
+    <span class="toggle-label">Recent Notes</span>
+    <button id="toggleNotes" type="button" aria-controls="notesList" aria-expanded="false" aria-label="Toggle recent notes">⬇</button>
   </div>
 
   <ul id="notesList" class="hidden"></ul>

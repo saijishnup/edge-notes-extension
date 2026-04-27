@@ -44,7 +44,7 @@ function setNotes(notes, callback) {
 function setNotesExpanded(expanded) {
   list.classList.toggle("hidden", !expanded);
   list.hidden = !expanded;
-  toggle.textContent = expanded ? "Recent Notes ⬆" : "Recent Notes ⬇";
+  toggle.textContent = expanded ? "⬆" : "⬇";
   toggle.setAttribute("aria-expanded", String(expanded));
 }
 
