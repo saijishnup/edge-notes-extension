@@ -159,12 +159,24 @@ saveBtn.onclick = () => {
     }
 
     const updated = editArea.value;
-    const lines = updated.split("\n");
+    const trimmed = updated.trim();
+
+    if (!trimmed) {
+      const nextNotes = notes.filter((note) => note.id !== currentNoteId);
+      setNotes(nextNotes, () => {
+        modal.classList.add("hidden");
+        currentNoteId = null;
+        loadNotes();
+      });
+      return;
+    }
+
+    const lines = trimmed.split("\n");
 
     notes[noteIndex] = {
       id: currentNoteId,
       title: lines[0],
-      content: updated
+      content: trimmed
     };
 
     setNotes(notes, () => {
