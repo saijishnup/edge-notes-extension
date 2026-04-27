@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Quick Notes",
   "version": "2.1",
   "description": "Lightweight notes extension",
