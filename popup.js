@@ -98,6 +98,13 @@ addBtn.onclick = () => {
   });
 };
 
+input.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" && !event.shiftKey) {
+    event.preventDefault();
+    addBtn.click();
+  }
+});
+
 // Delete
 function deleteNote(noteId) {
   getNotes((notes) => {
@@ -187,6 +194,13 @@ saveBtn.onclick = () => {
   });
 };
 
+editArea.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" && !event.shiftKey) {
+    event.preventDefault();
+    saveBtn.click();
+  }
+});
+
 // Copy
 copyBtn.onclick = () => {
   navigator.clipboard.writeText(editArea.value).catch((error) => {
@@ -208,6 +222,20 @@ modal.onclick = (event) => {
 };
 
 document.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" && !event.shiftKey) {
+    if (event.target === input) {
+      event.preventDefault();
+      addBtn.click();
+      return;
+    }
+
+    if (event.target === editArea && !modal.classList.contains("hidden")) {
+      event.preventDefault();
+      saveBtn.click();
+      return;
+    }
+  }
+
   if (event.key === "Escape" && !modal.classList.contains("hidden")) {
     modal.classList.add("hidden");
     currentNoteId = null;

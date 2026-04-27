@@ -33,6 +33,7 @@ html {
 }
 
 .dark {
+  
   --bg: #1e1e1e;
   --text: #ffffff;
   --card: #2c2c2c;
@@ -88,6 +89,10 @@ html {
   user-select: none;
   touch-action: manipulation;
   transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+html:not(.dark) #themeToggle {
+  background: #e0e0e0;
 }
 
 #themeToggle:active {
@@ -147,7 +152,7 @@ textarea {
 #toggleNotes {
   border: none;
   background: var(--card);
-  color: #9a8f00;
+  color: #000000;
   width: 28px;
   height: 28px;
   border-radius: 8px;
@@ -159,6 +164,10 @@ textarea {
   user-select: none;
   touch-action: manipulation;
   transition: transform 0.1s ease, box-shadow 0.1s ease, opacity 0.2s ease;
+}
+
+html:not(.dark) #toggleNotes {
+  background: #e0e0e0;
 }
 
 .dark #toggleNotes {
