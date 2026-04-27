@@ -16,4 +16,4 @@ The extension only uses storage permission to save notes locally.
 This extension does not use any third-party services.
 
 ## Contact
-If you have any questions, contact: your-email@gmail.com
+If you have any questions, contact: saijishnup@gmail.com
